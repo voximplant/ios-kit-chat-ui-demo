@@ -1,5 +1,5 @@
 //
-//  Copyright (c) 2011-2025, Zingaya, Inc. All rights reserved.
+//  Copyright (c) 2011-2025, Voximplant, Inc. All rights reserved.
 //
 
 enum ValidationError: CustomStringConvertible, Error {

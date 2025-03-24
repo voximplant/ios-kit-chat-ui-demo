@@ -112,7 +112,7 @@ identifier_name:
 file_header:
   required_pattern: |
                     \/\/
-                    \/\/  Copyright \(c\) 2011-2025, Zingaya, Inc\. All rights reserved\.
+                    \/\/  Copyright \(c\) 2011-2025, Voximplant, Inc\. All rights reserved\.
                     \/\/
 type_name:
   min_length: 3
