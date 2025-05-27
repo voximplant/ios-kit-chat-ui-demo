@@ -334,7 +334,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.voximplant.KitChatUIDemo-UIKit";
 				PRODUCT_NAME = "KitChatDemo-UIKit-";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -374,7 +374,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.voximplant.KitChatUIDemo-UIKit";
 				PRODUCT_NAME = "KitChatDemo-UIKit-";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -433,7 +433,7 @@
 			repositoryURL = "https://github.com/voximplant/ios-kit-chat-ui-sdk-releases.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.1.0;
+				version = 1.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
