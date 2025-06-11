@@ -23,19 +23,19 @@ final class KitChatDemoViewController: UIViewController {
     private var pickedRegion = ""
     private var channelUuidTextFieldText: String {
         let text = channelUuidInputField?.text ?? ""
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = text.removedAllWhitespaces
         channelUuidInputField?.text = trimmedText
         return trimmedText
     }
     private var clientIdTextFieldText: String {
         let text = clientIdInputField?.text ?? ""
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = text.removedAllWhitespaces
         clientIdInputField?.text = trimmedText
         return trimmedText
     }
     private var tokenTextFieldText: String {
         let text = tokenInputField?.text ?? ""
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = text.removedAllWhitespaces
         tokenInputField?.text = trimmedText
         return trimmedText
     }
@@ -146,6 +146,7 @@ final class KitChatDemoViewController: UIViewController {
         self.viKitChatUI = viKitChatUI
 
         guard let kitChatVC = VIKitChatViewController(id: viKitChatUI.id) else { return }
+        kitChatVC.delegate = self
         navigationController?.pushViewController(kitChatVC, animated: true)
     }
 
@@ -219,8 +220,9 @@ final class KitChatDemoViewController: UIViewController {
         let isValidCredentials = isValidCredentials()
 
         guard isValidCredentials,
+              let viRegion = VIRegion(rawValue: pickedRegion),
               let viKitChatUI = VIKitChatUI(
-                accountRegion: pickedRegion,
+                accountRegion: viRegion,
                 channelUuid: channelUuidTextFieldText,
                 token: tokenTextFieldText,
                 clientId: clientIdTextFieldText
@@ -250,33 +252,29 @@ final class KitChatDemoViewController: UIViewController {
     }
 
     private func isValidCredentials() -> Bool {
-        let pickerRegionError = validate(pickedRegion, credentialType: .region)
-        if let pickerRegionError {
-            kitChatDemoView.setRegionViewError(pickerRegionError.description)
+        var isValidCredentials = true
+
+        if pickedRegion.isEmpty {
+            kitChatDemoView.setRegionViewError(LocalizedStrings.emptyStringError.localized)
+            isValidCredentials = false
         }
 
-        let channelUuidError = validate(channelUuidTextFieldText, credentialType: .channelUuid)
-        if let channelUuidError {
-            channelUuidInputField?.errorText = channelUuidError.description
+        if channelUuidTextFieldText.isEmpty {
+            channelUuidInputField?.errorText = LocalizedStrings.emptyStringError.localized
+            isValidCredentials = false
         }
 
-        let clientIdError = validate(clientIdTextFieldText, credentialType: .clientId)
-        if let clientIdError {
-            clientIdInputField?.errorText = clientIdError.description
+        if clientIdTextFieldText.isEmpty {
+            clientIdInputField?.errorText = LocalizedStrings.emptyStringError.localized
+            isValidCredentials = false
         }
 
-        let tokenError = validate(tokenTextFieldText, credentialType: .token)
-        if let tokenError {
-            tokenInputField?.errorText = tokenError.description
+        if tokenTextFieldText.isEmpty {
+            tokenInputField?.errorText = LocalizedStrings.emptyStringError.localized
+            isValidCredentials = false
         }
-        return pickerRegionError == nil && channelUuidError == nil && clientIdError == nil && tokenError == nil
-    }
 
-    private func validate(_ text: String, credentialType: CredentialType) -> ValidationError? {
-        guard text.count > .zero else { return .empty }
-        guard text.count <= credentialType.textLimit else { return .limit(limit: credentialType.textLimit) }
-        guard !text.containsSpecificSymbols else { return .invalidValue }
-        return nil
+        return isValidCredentials
     }
 
     private func hideKeyboardWhenTappedAround() {
@@ -299,5 +297,32 @@ extension KitChatDemoViewController: RegionPickerDelegate {
 
     func regionPickerWasClosed(_ regionPickerViewController: RegionPickerViewController) {
         regionView?.rotateArrow()
+    }
+}
+
+extension KitChatDemoViewController: VIKitChatViewControllerDelegate {
+    func kitChatViewController(
+        _ kitChatViewController: VIKitChatViewController,
+        didFailToAuthorizeWithError error: VIAuthorizationError
+    ) {
+        let errorMessage: String
+        switch error {
+        case .invalidClientId:
+            errorMessage = LocalizedStrings.invalidClientIdError.localized
+        case .invalidToken:
+            errorMessage = LocalizedStrings.invalidTokenError.localized
+        case .invalidChannelUuid:
+            errorMessage = LocalizedStrings.invalidChannelUuidError.localized
+        @unknown default:
+            errorMessage = LocalizedStrings.unknownError.localized
+        }
+        let alert = UIAlertController(
+            title: LocalizedStrings.authorizationErrorAlertTitle.localized,
+            message: errorMessage,
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: LocalizedStrings.authorizationErrorAlertCloseButton.localized, style: .default)
+        alert.addAction(alertAction)
+        kitChatViewController.present(alert, animated: true, completion: nil)
     }
 }

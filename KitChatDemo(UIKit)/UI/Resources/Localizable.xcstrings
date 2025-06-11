@@ -30,6 +30,28 @@
         }
       }
     },
+    "authorization_error_alert_close_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "authorization_error_alert_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authorization error"
+          }
+        }
+      }
+    },
     "banner_error_message" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -233,35 +255,6 @@
         }
       }
     },
-    "error_count_limit" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d - max. number of characters"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d - número máximo de caracteres"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d - número máximo de caracteres"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%d — макс. кол-во символов"
-          }
-        }
-      }
-    },
     "error_empty_input" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -291,31 +284,46 @@
         }
       }
     },
-    "error_invalid_value" : {
+    "error_invalid_channel_uuid" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invalid value"
+            "value" : "Invalid channel UUID"
           }
-        },
-        "es" : {
+        }
+      }
+    },
+    "error_invalid_client_id" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valor no válido"
+            "value" : "Invalid customer id"
           }
-        },
-        "pt" : {
+        }
+      }
+    },
+    "error_invalid_token" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Valor inválido"
+            "value" : "Invalid token"
           }
-        },
-        "ru" : {
+        }
+      }
+    },
+    "error_unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Недопустимое значение"
+            "value" : "Something went wrong"
           }
         }
       }

@@ -26,9 +26,13 @@ enum LocalizedStrings {
     static let allowNotificationsButtonTitle = "allow_notifications_button_title"
 
     // Errors
-    static let invalidValueError = "error_invalid_value"
     static let emptyStringError = "error_empty_input"
-    static let countLimitError = "error_count_limit"
+    static let unknownError = "error_unknown"
+    
+    // Authorization errors
+    static let invalidClientIdError = "error_invalid_client_id"
+    static let invalidTokenError = "error_invalid_token"
+    static let invalidChannelUuidError = "error_invalid_channel_uuid"
 
     // Banner
     static let bannerErrorMessage = "banner_error_message"
@@ -39,4 +43,8 @@ enum LocalizedStrings {
     static let allowNotificationsAlertTitle = "notifications_permission_alert_title"
     static let allowNotificationsAlertCloseButton = "notifications_permission_alert_close_button"
     static let allowNotificationsAlertSettingsButton = "notifications_permission_alert_settings_button"
+    
+    // Authorization error alert
+    static let authorizationErrorAlertTitle = "authorization_error_alert_title"
+    static let authorizationErrorAlertCloseButton = "authorization_error_alert_close_button"
 }

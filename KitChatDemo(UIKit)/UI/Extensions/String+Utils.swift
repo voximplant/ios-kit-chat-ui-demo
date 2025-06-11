@@ -5,18 +5,16 @@
 import Foundation
 
 extension String {
-    var containsSpecificSymbols: Bool {
-        guard let regex = try? NSRegularExpression(pattern: "^[a-zA-Z0-9$\\-_.+!*'(),:@&=]+$") else { return true }
-        let range = NSRange(location: .zero, length: self.utf16.count)
-        return regex.firstMatch(in: self, options: [], range: range) == nil
+    var removedAllWhitespaces: Self {
+        filter { !$0.isWhitespace }
+    }
+    
+    var localized: Self {
+        let localizedKey = Self.LocalizationValue(stringLiteral: self)
+        return Self(localized: localizedKey)
     }
 
-    var localized: String {
-        let localizedKey = String.LocalizationValue(stringLiteral: self)
-        return String(localized: localizedKey)
-    }
-
-    func localized(args: CVarArg...) -> String {
-         return String(format: localized, arguments: args)
+    func localized(args: CVarArg...) -> Self {
+         return Self(format: localized, arguments: args)
      }
 }

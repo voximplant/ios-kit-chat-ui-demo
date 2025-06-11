@@ -56,14 +56,17 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func configureDependencies() {
         let config = VIKitChatConfiguration()
-        if let viKitChatUI = VIKitChatUI(
-            accountRegion: accountRegion ?? "",
-            channelUuid: channelUuid ?? "",
-            token: token ?? "",
-            clientId: clientId ?? "",
-            configuration: config
-        ) {
-            dependencies.register(service: viKitChatUI)
+        guard let accountRegion,
+              let viRegion = VIRegion(rawValue: accountRegion),
+              let viKitChatUI = VIKitChatUI(
+                accountRegion: viRegion,
+                channelUuid: channelUuid ?? "",
+                token: token ?? "",
+                clientId: clientId ?? "",
+                configuration: config
+              ) else {
+            return
         }
+        dependencies.register(service: viKitChatUI)
     }
 }
