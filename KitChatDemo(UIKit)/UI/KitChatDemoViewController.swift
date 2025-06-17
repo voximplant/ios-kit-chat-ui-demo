@@ -131,7 +131,7 @@ final class KitChatDemoViewController: UIViewController {
             .sink { [weak self] deviceToken in
                 guard let self else { return }
                 self.deviceToken = deviceToken
-                self.registerPushToken(token: deviceToken)
+                self.registerPushToken()
             }
     }
 
@@ -142,8 +142,8 @@ final class KitChatDemoViewController: UIViewController {
 
     @objc private func openChatButtonTapped() {
         guard let viKitChatUI = getVIKitChatUI() else { return }
-
         self.viKitChatUI = viKitChatUI
+        registerPushToken()
 
         guard let kitChatVC = VIKitChatViewController(id: viKitChatUI.id) else { return }
         kitChatVC.delegate = self
@@ -175,8 +175,9 @@ final class KitChatDemoViewController: UIViewController {
     }
 
     @objc private func bannerViewTapped() {
-        guard let deviceToken, let viKitChatUI else { return }
+        guard let deviceToken, let viKitChatUI = getVIKitChatUI() else { return }
         kitChatDemoView.bannerView.configure(style: .loading)
+        self.viKitChatUI = viKitChatUI
 
         viKitChatUI.registerPushToken(deviceToken, isDevelopment: isDevelopment) { [weak self] error in
             guard let self else { return }
@@ -226,8 +227,7 @@ final class KitChatDemoViewController: UIViewController {
                 channelUuid: channelUuidTextFieldText,
                 token: tokenTextFieldText,
                 clientId: clientIdTextFieldText
-              )
-        else { return nil }
+              ) else { return nil }
 
         ServiceLocator.shared.register(service: viKitChatUI)
 
@@ -236,17 +236,19 @@ final class KitChatDemoViewController: UIViewController {
         clientId = clientIdTextFieldText
         token = tokenTextFieldText
 
-        registerPushToken(token: deviceToken)
-
         return viKitChatUI
     }
 
-    private func registerPushToken(token: Data?) {
-        guard let token else { return }
-        viKitChatUI?.registerPushToken(token, isDevelopment: isDevelopment) { [weak self] error in
-            guard let self, error != nil else { return }
+    private func registerPushToken() {
+        guard let deviceToken else { return }
+        viKitChatUI?.registerPushToken(deviceToken, isDevelopment: isDevelopment) { [weak self] error in
+            guard let self else { return }
             DispatchQueue.main.async {
-                self.kitChatDemoView.showBannerView(with: .error)
+                if error == nil {
+                    self.kitChatDemoView.hideBannerView()
+                } else {
+                    self.kitChatDemoView.showBannerView(with: .error)
+                }
             }
         }
     }
