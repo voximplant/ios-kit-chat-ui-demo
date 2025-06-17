@@ -38,6 +38,24 @@
             "state" : "translated",
             "value" : "OK"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "OK"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "OK"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "OK"
+          }
         }
       }
     },
@@ -47,6 +65,24 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Authorization error"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Authorization error"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Authorization error"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Authorization error"
           }
         }
@@ -284,23 +320,30 @@
         }
       }
     },
-    "error_invalid_channel_uuid" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Invalid channel UUID"
-          }
-        }
-      }
-    },
     "error_invalid_client_id" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Invalid customer id"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Invalid customer id"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Invalid customer id"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Invalid customer id"
           }
         }
@@ -314,6 +357,24 @@
             "state" : "translated",
             "value" : "Invalid token"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Invalid token"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Invalid token"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Invalid token"
+          }
         }
       }
     },
@@ -323,6 +384,24 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Something went wrong"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Something went wrong"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Something went wrong"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Something went wrong"
           }
         }

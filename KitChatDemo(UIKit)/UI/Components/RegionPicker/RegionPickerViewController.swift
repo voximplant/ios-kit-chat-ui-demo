@@ -51,7 +51,7 @@ final class RegionPickerViewController: UIViewController {
 
     private var lastPickedRegionIndex: Int?
 
-    private let regions = VIRegion.allCases.map { $0.rawValue }
+    private let regions = VIRegion.allCases.map(\.rawValue)
 
     private enum Constants {
         static let buttonContentInset = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
