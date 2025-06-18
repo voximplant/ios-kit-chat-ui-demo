@@ -89,11 +89,7 @@ final class KitChatDemoViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        regionView?.setRegion(accountRegion ?? "")
-        pickedRegion = accountRegion ?? ""
-        channelUuidInputField?.text = channelUuid ?? ""
-        tokenInputField?.text = token ?? ""
-        clientIdInputField?.text = clientId ?? ""
+        setCredentialsToInputsIfNeeded()
     }
 
     override func viewDidLayoutSubviews() {
@@ -114,6 +110,22 @@ final class KitChatDemoViewController: UIViewController {
         channelUuidInputField = kitChatDemoView.channelUuidInputField
         tokenInputField = kitChatDemoView.tokenInputField
         clientIdInputField = kitChatDemoView.clientIdInputField
+    }
+
+    private func setCredentialsToInputsIfNeeded() {
+        pickedRegion = accountRegion ?? ""
+        if let regionView, !regionView.hasError {
+            regionView.setRegion(accountRegion ?? "")
+        }
+        if let channelUuidInputField, !channelUuidInputField.hasError {
+            channelUuidInputField.text = channelUuid ?? ""
+        }
+        if let tokenInputField, !tokenInputField.hasError {
+            tokenInputField.text = token ?? ""
+        }
+        if let clientIdInputField, !clientIdInputField.hasError {
+            clientIdInputField.text = clientId ?? ""
+        }
     }
 
     private func observeDidBecomeActiveNotification() {
@@ -311,10 +323,13 @@ extension KitChatDemoViewController: VIKitChatViewControllerDelegate {
         switch error {
         case .invalidClientId:
             errorMessage = LocalizedStrings.invalidClientIdError.localized
+            clientIdInputField?.errorText = errorMessage
         case .invalidToken:
             errorMessage = LocalizedStrings.invalidTokenError.localized
+            tokenInputField?.errorText = errorMessage
         case .invalidChannelUuid:
             errorMessage = LocalizedStrings.invalidChannelUuidError.localized
+            channelUuidInputField?.errorText = errorMessage
         @unknown default:
             errorMessage = LocalizedStrings.unknownError.localized
         }

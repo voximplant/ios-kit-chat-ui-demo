@@ -41,6 +41,8 @@ final class InputField: UIView {
         }
     }
 
+    var hasError: Bool { !errorLabel.isHidden }
+
     var errorText: String = "" {
         didSet {
             errorLabel.text = errorText
