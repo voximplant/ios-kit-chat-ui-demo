@@ -8,7 +8,7 @@ extension String {
     var removedAllWhitespaces: Self {
         filter { !$0.isWhitespace }
     }
-    
+
     var localized: Self {
         let localizedKey = Self.LocalizationValue(stringLiteral: self)
         return Self(localized: localizedKey)
