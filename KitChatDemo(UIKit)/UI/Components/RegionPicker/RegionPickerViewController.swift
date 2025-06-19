@@ -4,6 +4,7 @@
 
 import AutoLayoutBuilder
 import UIKit
+import VoximplantKitChatUI
 
 protocol RegionPickerDelegate: AnyObject {
     func regionPicker(_ regionPickerViewController: RegionPickerViewController, didPickedRegion region: String)
@@ -50,14 +51,7 @@ final class RegionPickerViewController: UIViewController {
 
     private var lastPickedRegionIndex: Int?
 
-    private let regions: [String] = [
-        "ru",
-        "ru2",
-        "eu",
-        "us",
-        "br",
-        "kz"
-    ]
+    private let regions = VIRegion.allCases.map(\.rawValue)
 
     private enum Constants {
         static let buttonContentInset = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)

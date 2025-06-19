@@ -23,19 +23,19 @@ final class KitChatDemoViewController: UIViewController {
     private var pickedRegion = ""
     private var channelUuidTextFieldText: String {
         let text = channelUuidInputField?.text ?? ""
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = text.removedAllWhitespaces
         channelUuidInputField?.text = trimmedText
         return trimmedText
     }
     private var clientIdTextFieldText: String {
         let text = clientIdInputField?.text ?? ""
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = text.removedAllWhitespaces
         clientIdInputField?.text = trimmedText
         return trimmedText
     }
     private var tokenTextFieldText: String {
         let text = tokenInputField?.text ?? ""
-        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = text.removedAllWhitespaces
         tokenInputField?.text = trimmedText
         return trimmedText
     }
@@ -89,11 +89,7 @@ final class KitChatDemoViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        regionView?.setRegion(accountRegion ?? "")
-        pickedRegion = accountRegion ?? ""
-        channelUuidInputField?.text = channelUuid ?? ""
-        tokenInputField?.text = token ?? ""
-        clientIdInputField?.text = clientId ?? ""
+        setCredentialsToInputsIfNeeded()
     }
 
     override func viewDidLayoutSubviews() {
@@ -116,6 +112,22 @@ final class KitChatDemoViewController: UIViewController {
         clientIdInputField = kitChatDemoView.clientIdInputField
     }
 
+    private func setCredentialsToInputsIfNeeded() {
+        pickedRegion = accountRegion ?? ""
+        if let regionView, !regionView.hasError {
+            regionView.setRegion(accountRegion ?? "")
+        }
+        if let channelUuidInputField, !channelUuidInputField.hasError {
+            channelUuidInputField.text = channelUuid ?? ""
+        }
+        if let tokenInputField, !tokenInputField.hasError {
+            tokenInputField.text = token ?? ""
+        }
+        if let clientIdInputField, !clientIdInputField.hasError {
+            clientIdInputField.text = clientId ?? ""
+        }
+    }
+
     private func observeDidBecomeActiveNotification() {
         NotificationCenter.default.addObserver(
             self,
@@ -131,7 +143,7 @@ final class KitChatDemoViewController: UIViewController {
             .sink { [weak self] deviceToken in
                 guard let self else { return }
                 self.deviceToken = deviceToken
-                self.registerPushToken(token: deviceToken)
+                self.registerPushToken()
             }
     }
 
@@ -142,10 +154,11 @@ final class KitChatDemoViewController: UIViewController {
 
     @objc private func openChatButtonTapped() {
         guard let viKitChatUI = getVIKitChatUI() else { return }
-
         self.viKitChatUI = viKitChatUI
+        registerPushToken()
 
         guard let kitChatVC = VIKitChatViewController(id: viKitChatUI.id) else { return }
+        kitChatVC.delegate = self
         navigationController?.pushViewController(kitChatVC, animated: true)
     }
 
@@ -174,8 +187,9 @@ final class KitChatDemoViewController: UIViewController {
     }
 
     @objc private func bannerViewTapped() {
-        guard let deviceToken, let viKitChatUI else { return }
+        guard let deviceToken, let viKitChatUI = getVIKitChatUI() else { return }
         kitChatDemoView.bannerView.configure(style: .loading)
+        self.viKitChatUI = viKitChatUI
 
         viKitChatUI.registerPushToken(deviceToken, isDevelopment: isDevelopment) { [weak self] error in
             guard let self else { return }
@@ -219,13 +233,13 @@ final class KitChatDemoViewController: UIViewController {
         let isValidCredentials = isValidCredentials()
 
         guard isValidCredentials,
+              let viRegion = VIRegion(rawValue: pickedRegion),
               let viKitChatUI = VIKitChatUI(
-                accountRegion: pickedRegion,
+                accountRegion: viRegion,
                 channelUuid: channelUuidTextFieldText,
                 token: tokenTextFieldText,
                 clientId: clientIdTextFieldText
-              )
-        else { return nil }
+              ) else { return nil }
 
         ServiceLocator.shared.register(service: viKitChatUI)
 
@@ -234,49 +248,47 @@ final class KitChatDemoViewController: UIViewController {
         clientId = clientIdTextFieldText
         token = tokenTextFieldText
 
-        registerPushToken(token: deviceToken)
-
         return viKitChatUI
     }
 
-    private func registerPushToken(token: Data?) {
-        guard let token else { return }
-        viKitChatUI?.registerPushToken(token, isDevelopment: isDevelopment) { [weak self] error in
-            guard let self, error != nil else { return }
+    private func registerPushToken() {
+        guard let deviceToken else { return }
+        viKitChatUI?.registerPushToken(deviceToken, isDevelopment: isDevelopment) { [weak self] error in
+            guard let self else { return }
             DispatchQueue.main.async {
-                self.kitChatDemoView.showBannerView(with: .error)
+                if error == nil {
+                    self.kitChatDemoView.hideBannerView()
+                } else {
+                    self.kitChatDemoView.showBannerView(with: .error)
+                }
             }
         }
     }
 
     private func isValidCredentials() -> Bool {
-        let pickerRegionError = validate(pickedRegion, credentialType: .region)
-        if let pickerRegionError {
-            kitChatDemoView.setRegionViewError(pickerRegionError.description)
+        var isValidCredentials = true
+
+        if pickedRegion.isEmpty {
+            kitChatDemoView.setRegionViewError(LocalizedStrings.emptyStringError.localized)
+            isValidCredentials = false
         }
 
-        let channelUuidError = validate(channelUuidTextFieldText, credentialType: .channelUuid)
-        if let channelUuidError {
-            channelUuidInputField?.errorText = channelUuidError.description
+        if channelUuidTextFieldText.isEmpty {
+            channelUuidInputField?.errorText = LocalizedStrings.emptyStringError.localized
+            isValidCredentials = false
         }
 
-        let clientIdError = validate(clientIdTextFieldText, credentialType: .clientId)
-        if let clientIdError {
-            clientIdInputField?.errorText = clientIdError.description
+        if clientIdTextFieldText.isEmpty {
+            clientIdInputField?.errorText = LocalizedStrings.emptyStringError.localized
+            isValidCredentials = false
         }
 
-        let tokenError = validate(tokenTextFieldText, credentialType: .token)
-        if let tokenError {
-            tokenInputField?.errorText = tokenError.description
+        if tokenTextFieldText.isEmpty {
+            tokenInputField?.errorText = LocalizedStrings.emptyStringError.localized
+            isValidCredentials = false
         }
-        return pickerRegionError == nil && channelUuidError == nil && clientIdError == nil && tokenError == nil
-    }
 
-    private func validate(_ text: String, credentialType: CredentialType) -> ValidationError? {
-        guard text.count > .zero else { return .empty }
-        guard text.count <= credentialType.textLimit else { return .limit(limit: credentialType.textLimit) }
-        guard !text.containsSpecificSymbols else { return .invalidValue }
-        return nil
+        return isValidCredentials
     }
 
     private func hideKeyboardWhenTappedAround() {
@@ -299,5 +311,35 @@ extension KitChatDemoViewController: RegionPickerDelegate {
 
     func regionPickerWasClosed(_ regionPickerViewController: RegionPickerViewController) {
         regionView?.rotateArrow()
+    }
+}
+
+extension KitChatDemoViewController: VIKitChatViewControllerDelegate {
+    func kitChatViewController(
+        _ kitChatViewController: VIKitChatViewController,
+        didFailToAuthorizeWithError error: VIAuthorizationError
+    ) {
+        let errorMessage: String
+        switch error {
+        case .invalidClientId:
+            errorMessage = LocalizedStrings.invalidClientIdError.localized
+            clientIdInputField?.errorText = errorMessage
+        case .invalidToken:
+            errorMessage = LocalizedStrings.invalidTokenError.localized
+            tokenInputField?.errorText = errorMessage
+        case .invalidChannelUuid:
+            errorMessage = LocalizedStrings.invalidChannelUuidError.localized
+            channelUuidInputField?.errorText = errorMessage
+        @unknown default:
+            errorMessage = LocalizedStrings.unknownError.localized
+        }
+        let alert = UIAlertController(
+            title: LocalizedStrings.authorizationErrorAlertTitle.localized,
+            message: errorMessage,
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: LocalizedStrings.authorizationErrorAlertCloseButton.localized, style: .default)
+        alert.addAction(alertAction)
+        kitChatViewController.present(alert, animated: true, completion: nil)
     }
 }
