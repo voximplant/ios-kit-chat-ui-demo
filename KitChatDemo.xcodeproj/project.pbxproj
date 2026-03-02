@@ -10,13 +10,39 @@
 		B1637DDF2D6776B300832628 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = B1637DDE2D6776B300832628 /* .swiftlint.yml */; };
 		B191E1352D5E131F00BEDD9B /* AutoLayoutBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = B191E1342D5E131F00BEDD9B /* AutoLayoutBuilder */; };
 		B1A9842D2D3926730018B6F0 /* VoximplantKitChatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B1A9842C2D3926730018B6F0 /* VoximplantKitChatUI */; };
+		B1CD48A82F55B1C4001F9399 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B1CD48A12F55B1C4001F9399 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F2C69C212D8B223000F3270A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F2C69C182D8B223000F3270A /* LICENSE */; };
 		F2C69C222D8B223000F3270A /* NOTICE in Resources */ = {isa = PBXBuildFile; fileRef = F2C69C192D8B223000F3270A /* NOTICE */; };
 		F2C69C602D8B25B200F3270A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F2C69C5F2D8B25AA00F3270A /* README.md */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B1CD48A62F55B1C4001F9399 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B2BF020C2D10474C00E8FB6D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1CD48A02F55B1C4001F9399;
+			remoteInfo = NotificationService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B1CD48A92F55B1C4001F9399 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B1CD48A82F55B1C4001F9399 /* NotificationService.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		B1637DDE2D6776B300832628 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		B1CD48A12F55B1C4001F9399 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2F076952D12E9930099F7CD /* KitChatDemo-UIKit-.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KitChatDemo-UIKit-.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2C69C182D8B223000F3270A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F2C69C192D8B223000F3270A /* NOTICE */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
@@ -24,6 +50,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B1CD48AD2F55B1C4001F9399 /* Exceptions for "NotificationService" folder in "NotificationService" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B1CD48A02F55B1C4001F9399 /* NotificationService */;
+		};
+		B1CD48AF2F55B231001F9399 /* Exceptions for "KitChatDemo(UIKit)" folder in "NotificationService" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				UI/Resources/Localizable.xcstrings,
+			);
+			target = B1CD48A02F55B1C4001F9399 /* NotificationService */;
+		};
 		B2F0770D2D12ED2D0099F7CD /* Exceptions for "KitChatDemo(UIKit)" folder in "KitChatDemo(UIKit)" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -34,10 +74,19 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		B1CD48A22F55B1C4001F9399 /* NotificationService */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B1CD48AD2F55B1C4001F9399 /* Exceptions for "NotificationService" folder in "NotificationService" target */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 		B2F077032D12ED2D0099F7CD /* KitChatDemo(UIKit) */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				B2F0770D2D12ED2D0099F7CD /* Exceptions for "KitChatDemo(UIKit)" folder in "KitChatDemo(UIKit)" target */,
+				B1CD48AF2F55B231001F9399 /* Exceptions for "KitChatDemo(UIKit)" folder in "NotificationService" target */,
 			);
 			path = "KitChatDemo(UIKit)";
 			sourceTree = "<group>";
@@ -45,6 +94,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B1CD489E2F55B1C4001F9399 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B2F076922D12E9930099F7CD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -65,6 +121,7 @@
 				F2C69C182D8B223000F3270A /* LICENSE */,
 				F2C69C192D8B223000F3270A /* NOTICE */,
 				B2F077032D12ED2D0099F7CD /* KitChatDemo(UIKit) */,
+				B1CD48A22F55B1C4001F9399 /* NotificationService */,
 				B2F076AA2D12EB010099F7CD /* Frameworks */,
 				B2BF02152D10474C00E8FB6D /* Products */,
 			);
@@ -74,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				B2F076952D12E9930099F7CD /* KitChatDemo-UIKit-.app */,
+				B1CD48A12F55B1C4001F9399 /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,6 +146,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B1CD48A02F55B1C4001F9399 /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1CD48AC2F55B1C4001F9399 /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				B1CD489D2F55B1C4001F9399 /* Sources */,
+				B1CD489E2F55B1C4001F9399 /* Frameworks */,
+				B1CD489F2F55B1C4001F9399 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B1CD48A22F55B1C4001F9399 /* NotificationService */,
+			);
+			name = NotificationService;
+			packageProductDependencies = (
+			);
+			productName = NotificationService;
+			productReference = B1CD48A12F55B1C4001F9399 /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		B2F076942D12E9930099F7CD /* KitChatDemo(UIKit) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B2F076A72D12E9950099F7CD /* Build configuration list for PBXNativeTarget "KitChatDemo(UIKit)" */;
@@ -95,11 +175,13 @@
 				B2F076912D12E9930099F7CD /* Sources */,
 				B2F076922D12E9930099F7CD /* Frameworks */,
 				B2F076932D12E9930099F7CD /* Resources */,
+				B1CD48A92F55B1C4001F9399 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				B1637DE52D67782500832628 /* PBXTargetDependency */,
+				B1CD48A72F55B1C4001F9399 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				B2F077032D12ED2D0099F7CD /* KitChatDemo(UIKit) */,
@@ -120,9 +202,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
+				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					B1CD48A02F55B1C4001F9399 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					B2F076942D12E9930099F7CD = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -151,11 +236,19 @@
 			projectRoot = "";
 			targets = (
 				B2F076942D12E9930099F7CD /* KitChatDemo(UIKit) */,
+				B1CD48A02F55B1C4001F9399 /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B1CD489F2F55B1C4001F9399 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B2F076932D12E9930099F7CD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,6 +263,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B1CD489D2F55B1C4001F9399 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B2F076912D12E9930099F7CD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,9 +284,74 @@
 			isa = PBXTargetDependency;
 			productRef = B1637DE42D67782500832628 /* SwiftLintBuildToolPlugin */;
 		};
+		B1CD48A72F55B1C4001F9399 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1CD48A02F55B1C4001F9399 /* NotificationService */;
+			targetProxy = B1CD48A62F55B1C4001F9399 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		B1CD48AA2F55B1C4001F9399 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9BHJBL635;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.voximplant.KitChatUIDemo-UIKit.NotificationService";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B1CD48AB2F55B1C4001F9399 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W9BHJBL635;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.voximplant.KitChatUIDemo-UIKit.NotificationService";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		B2BF02202D10475100E8FB6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -391,6 +556,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B1CD48AC2F55B1C4001F9399 /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1CD48AA2F55B1C4001F9399 /* Debug */,
+				B1CD48AB2F55B1C4001F9399 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B2BF020F2D10474C00E8FB6D /* Build configuration list for PBXProject "KitChatDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

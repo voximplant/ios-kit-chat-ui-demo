@@ -18,6 +18,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     @UserDefault("token") private var token: String?
     private let dependencies = ServiceLocator.shared
     private static var deviceTokenSubject = PassthroughSubject<Data?, Never>()
+    private var isPresentedVIKitChatViewController: Bool {
+        UIApplication.shared.firstWindow?.visibleViewController is VIKitChatViewController
+    }
 
     override init() {
         super.init()
@@ -28,30 +31,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             if !granted { print("Permission for push notifications denied.") }
         }
+        notificationCenter.delegate = self
         return true
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Self.deviceTokenSubject.send(deviceToken)
-    }
-
-    func application(
-        _ application: UIApplication,
-        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
-    ) {
-        guard let viKitChatUI: VIKitChatUI = dependencies.resolve() else {
-            completionHandler(.noData)
-            return
-        }
-        viKitChatUI.handlePushNotification(userInfo) { error in
-            completionHandler(.noData)
-            guard let error else { return }
-            print(error.description)
-        }
     }
 
     private func configureDependencies() {
@@ -68,5 +57,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         dependencies.register(service: viKitChatUI)
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        guard !isPresentedVIKitChatViewController else { return }
+        completionHandler([.list, .banner, .sound])
     }
 }
