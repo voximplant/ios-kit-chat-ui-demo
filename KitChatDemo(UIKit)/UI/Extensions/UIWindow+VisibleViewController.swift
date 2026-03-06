@@ -1,5 +1,5 @@
 //
-//  Copyright (c) 2011-2026, Zingaya, Inc. All rights reserved.
+//  Copyright (c) 2011-2026, Voximplant, Inc. All rights reserved.
 //
 
 import UIKit
